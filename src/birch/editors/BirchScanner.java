@@ -93,6 +93,8 @@ public class BirchScanner extends RuleBasedScanner {
 
 		keywordRule.addWord("import", keyword);
 		keywordRule.addWord("function", keyword);
+		keywordRule.addWord("lambda", keyword);
+		keywordRule.addWord("virtual", keyword);
 		keywordRule.addWord("model", keyword);
 		keywordRule.addWord("program", keyword);
 		keywordRule.addWord("if", keyword);
