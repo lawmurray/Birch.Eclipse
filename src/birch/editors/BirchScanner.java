@@ -92,6 +92,7 @@ public class BirchScanner extends RuleBasedScanner {
 		keywordRule.addWord("in", keyword);
 		keywordRule.addWord("while", keyword);
 		keywordRule.addWord("return", keyword);
+		keywordRule.addWord("super", keyword);
 		keywordRule.addWord("this", keyword);
 
 		literalRule.addWord("true", literal);
