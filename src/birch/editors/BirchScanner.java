@@ -29,8 +29,6 @@ public class BirchScanner extends RuleBasedScanner {
 				manager.getColor(IBirchColorConstants.RAW)));
 		Token string = new Token(new TextAttribute(
 				manager.getColor(IBirchColorConstants.LITERAL)));
-		Token expression = new Token(new TextAttribute(
-				manager.getColor(IBirchColorConstants.EXPRESSION)));
 
 		WordRule rawKeywordRule = new WordRule(new IWordDetector() {
 			public boolean isWordStart(char c) {
@@ -78,16 +76,6 @@ public class BirchScanner extends RuleBasedScanner {
 			}
 		});
 		
-		WordRule expressionRule = new WordRule(new IWordDetector() {
-			public boolean isWordStart(char c) {
-				return c == '@' || c == '%';
-			}
-
-			public boolean isWordPart(char c) {
-				return Character.isJavaIdentifierPart(c);
-			}
-		}, expression);
-
 		rawKeywordRule.addWord("cpp", rawKeyword);
 		rawKeywordRule.addWord("hpp", rawKeyword);
 
@@ -109,6 +97,15 @@ public class BirchScanner extends RuleBasedScanner {
 		literalRule.addWord("true", literal);
 		literalRule.addWord("false", literal);
 		
+		/* exclude single uppercase letters from type rule, as these are
+		 * often used for e.g. matrices */
+		for (char c = 'A'; c <= 'Z'; ++c) {
+			typeRule.addWord(Character.toString(c), name);
+		}
+		for (char c = 'Α'; c <= 'Ω'; ++c) {
+			typeRule.addWord(Character.toString(c), name);
+		}
+		
 		setRules(new IRule[] {
 				new WhitespaceRule(new IWhitespaceDetector() {
 					public boolean isWhitespace(char c) {
@@ -116,7 +113,6 @@ public class BirchScanner extends RuleBasedScanner {
 					}
 				}),
 				new NumberRule(literal),
-				expressionRule,
 				keywordRule,
 				rawKeywordRule,
 				literalRule,
