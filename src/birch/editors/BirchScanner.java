@@ -137,7 +137,6 @@ public class BirchScanner extends RuleBasedScanner {
 				new MultiLineRule("{{", "}}", raw),
 				//new MultiLineRule("{", "}", block),
 				new SingleLineRule("\"", "\"", string, '\\'),
-				new SingleLineRule("'", "'", string, '\\'),
 				});
 	}
 }
