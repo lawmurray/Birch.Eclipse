@@ -96,6 +96,7 @@ public class BirchScanner extends RuleBasedScanner {
 		keywordRule.addWord("yield", keyword);
 		keywordRule.addWord("super", keyword);
 		keywordRule.addWord("this", keyword);
+		keywordRule.addWord("closed", keyword);
 
 		literalRule.addWord("nil", literal);
 		literalRule.addWord("true", literal);
