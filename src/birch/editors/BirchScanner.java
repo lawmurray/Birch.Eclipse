@@ -79,7 +79,6 @@ public class BirchScanner extends RuleBasedScanner {
 		rawKeywordRule.addWord("cpp", rawKeyword);
 		rawKeywordRule.addWord("hpp", rawKeyword);
 
-		keywordRule.addWord("import", keyword);
 		keywordRule.addWord("function", keyword);
 		keywordRule.addWord("fiber", keyword);
 		keywordRule.addWord("program", keyword);
@@ -97,7 +96,6 @@ public class BirchScanner extends RuleBasedScanner {
 		keywordRule.addWord("yield", keyword);
 		keywordRule.addWord("super", keyword);
 		keywordRule.addWord("this", keyword);
-		keywordRule.addWord("closed", keyword);
 
 		literalRule.addWord("nil", literal);
 		literalRule.addWord("true", literal);
