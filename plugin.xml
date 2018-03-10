@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
-<plugin>
-
-   <extension
-         point="org.eclipse.ui.editors">
+   <plugin>
+   <extension point="org.eclipse.ui.editors">
       <editor
             name="Birch Editor"
-            extensions="bi"
+            extensions="bi,bih"
             icon="icons/sample.gif"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            class="birch.editors.BirchEditor"
-            id="birch.editors.BirchEditor">
+            class="org.birch-lang.editors.BirchEditor"
+            id="org.birch-lang.editors.BirchEditor">
       </editor>
    </extension>
-
 </plugin>
