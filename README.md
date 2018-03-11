@@ -3,14 +3,24 @@
 The Birch Eclipse Plugin provides a syntax-highlighting text editor for the [Eclipse](http://www.eclipse.org) IDE.
 
 
-## User Installation
+## Installation
 
-For users, an update site is available at <http://www.birch-lang.org/eclipse/updates>.
+An update site is available at <http://www.birch-lang.org/eclipse/updates>.
 
-From within Eclipse, use *Help > Install New Software...*. Click the *Add...* button and enter this URL. Follow the prompts from there.
+From within Eclipse, use *Help > Install New Software...*. Click the *Add...* button and enter this URL. Follow the prompts from there. The plugin should be automatically associated with the `*.bi` file extension.
 
 
-## Developer Installation
+## Creating Birch projects in Eclipse
+
+Once a Birch project has been created from the command line with `birch init`:
+
+  1. Import it into Eclipse using *File > New > Makefile Project with Existing Code*.
+  2. Under *Project > Properties*, select *C/C++ Build* on the left.
+  3. Go to the *Builder Settings* tab and enter `birch` as the build command.
+  4. Go to the *Behavior* tab and enter `build` (or `install`, if preferred) next to the *Build (Incremental build)* checkbox.
+
+
+## Installation for plugin developers
 
 To install the plugin, first ensure that your Eclipse environment has the appropriate components. Use *Help > Install New Software...*, and install:
 
@@ -40,13 +50,3 @@ To install:
 After installation, it is possible to create the update site. Open the `site.xml` file of the `Birch.EclipseSite` project and click the *Build All* button.
 
 To change the version number, it is necessary to modify the `feature.xml` file under the *Birch.EclipseFeature* project.
-
-
-## Creating Birch projects in Eclipse
-
-Once a Birch project has been created with `birch init`:
-
-  1. Import it into Eclipse using *File > New > Makefile Project with Existing Code*.
-  2. Under *Project > Properties*, select *C/C++ Build* on the left.
-  3. Go to the *Builder Settings* tab and enter `birch` as the build command.
-  4. Go to the *Behavior* tab and enter `build` (or `install`, if preferred) next to the *Build (Incremental build)* checkbox.
