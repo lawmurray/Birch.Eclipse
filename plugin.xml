@@ -7,8 +7,8 @@
             extensions="bi,bih"
             icon="icons/sample.gif"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            class="org.birch-lang.editors.BirchEditor"
-            id="org.birch-lang.editors.BirchEditor">
+            class="org.birch_lang.editors.BirchEditor"
+            id="org.birch_lang.editors.BirchEditor">
       </editor>
    </extension>
 </plugin>

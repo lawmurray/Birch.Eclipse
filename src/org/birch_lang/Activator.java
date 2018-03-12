@@ -1,4 +1,4 @@
-package birch;
+package org.birch_lang;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

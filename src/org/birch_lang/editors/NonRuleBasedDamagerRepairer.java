@@ -1,4 +1,4 @@
-package birch.editors;
+package org.birch_lang.editors;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.DocumentEvent;

@@ -1,4 +1,4 @@
-package birch.editors;
+package org.birch_lang.editors;
 
 import java.util.HashMap;
 import java.util.Iterator;

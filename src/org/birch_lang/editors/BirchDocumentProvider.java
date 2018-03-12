@@ -1,4 +1,4 @@
-package birch.editors;
+package org.birch_lang.editors;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.IDocument;

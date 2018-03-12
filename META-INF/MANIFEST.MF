@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Editor for the Birch language
+Bundle-Name: BirchEditor
 Bundle-SymbolicName: BirchEditor;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: birch.Activator
+Bundle-Activator: org.birch_lang.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.jface.text,
