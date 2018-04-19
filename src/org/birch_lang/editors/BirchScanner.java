@@ -85,6 +85,7 @@ public class BirchScanner extends RuleBasedScanner {
 		keywordRule.addWord("operator", keyword);
 		keywordRule.addWord("class", keyword);
 		keywordRule.addWord("type", keyword);
+		keywordRule.addWord("explicit", keyword);
 		keywordRule.addWord("if", keyword);
 		keywordRule.addWord("else", keyword);
 		keywordRule.addWord("for", keyword);
@@ -94,6 +95,7 @@ public class BirchScanner extends RuleBasedScanner {
 		keywordRule.addWord("assert", keyword);
 		keywordRule.addWord("return", keyword);
 		keywordRule.addWord("yield", keyword);
+		keywordRule.addWord("global", keyword);
 		keywordRule.addWord("super", keyword);
 		keywordRule.addWord("this", keyword);
 
