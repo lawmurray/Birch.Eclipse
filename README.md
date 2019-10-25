@@ -20,7 +20,9 @@ Once a Birch project has been created from the command line with `birch init`:
   4. Go to the *Behavior* tab and enter `build` (or `install`, if preferred) next to the *Build (Incremental build)* checkbox.
 
 
-## Installation for plugin developers
+## For developers
+
+### Installation
 
 To install the plugin, first ensure that your Eclipse environment has the appropriate components. Use *Help > Install New Software...*, and install:
 
@@ -50,3 +52,12 @@ To install:
 After installation, it is possible to create the update site. Open the `site.xml` file of the `Birch.EclipseSite` project and click the *Build All* button.
 
 To change the version number, it is necessary to modify the `feature.xml` file under the *Birch.EclipseFeature* project.
+
+
+### Building the update site
+
+Within Eclipse:
+
+  * In `Birch.Eclipse`, compile and install *File > Export > Deployable plug-ins and fragments*.
+  * In `Birch.EclipseFeature`, `feature.xml`, *Included Plug-ins* tab, remove the current plug-in and add the new one. Click *Versions* button and select anything to update the version number properly.
+  * In `Birch.EclipseSite`, `site.xml`, *Site Map* tab, update the plug-in versions that should be included, then build.
