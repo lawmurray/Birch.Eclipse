@@ -100,6 +100,7 @@ public class BirchScanner extends RuleBasedScanner {
 		keywordRule.addWord("super", keyword);
 		keywordRule.addWord("this", keyword);
 		keywordRule.addWord("parallel", keyword);
+		keywordRule.addWord("dynamic", keyword);
 		keywordRule.addWord("final", keyword);
 		keywordRule.addWord("abstract", keyword);
 
