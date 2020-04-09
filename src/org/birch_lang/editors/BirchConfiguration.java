@@ -18,6 +18,11 @@ public class BirchConfiguration extends SourceViewerConfiguration {
 	public BirchConfiguration(ColorManager colorManager) {
 		this.colorManager = colorManager;
 	}
+	
+	public int getTabWidth​(ISourceViewer sourceViewer) {
+		return 2;
+	}
+	
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
 		return new String[] {
 			IDocument.DEFAULT_CONTENT_TYPE,
@@ -26,6 +31,7 @@ public class BirchConfiguration extends SourceViewerConfiguration {
 			//BirchPartitionScanner.BIRCH_BLOCK,
 			BirchPartitionScanner.BIRCH_RAW };
 	}
+	
 	public ITextDoubleClickStrategy getDoubleClickStrategy(
 		ISourceViewer sourceViewer,
 		String contentType) {

@@ -73,12 +73,8 @@ public class NonRuleBasedDamagerRepairer
 				IRegion info =
 					fDocument.getLineInformationOfOffset(event.getOffset());
 				int start = Math.max(partition.getOffset(), info.getOffset());
-
-				int end =
-					event.getOffset()
-						+ (event.getText() == null
-							? event.getLength()
-							: event.getText().length());
+				int end = event.getOffset() + (event.getText() == null ?
+						event.getLength() : event.getText().length());
 
 				if (info.getOffset() <= end
 					&& end <= info.getOffset() + info.getLength()) {
