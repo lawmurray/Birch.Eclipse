@@ -85,7 +85,6 @@ public class BirchScanner extends RuleBasedScanner {
 		keywordRule.addWord("operator", keyword);
 		keywordRule.addWord("class", keyword);
 		keywordRule.addWord("type", keyword);
-		keywordRule.addWord("explicit", keyword);
 		keywordRule.addWord("auto", keyword);
 		keywordRule.addWord("if", keyword);
 		keywordRule.addWord("else", keyword);
@@ -101,8 +100,9 @@ public class BirchScanner extends RuleBasedScanner {
 		keywordRule.addWord("this", keyword);
 		keywordRule.addWord("parallel", keyword);
 		keywordRule.addWord("dynamic", keyword);
-		keywordRule.addWord("final", keyword);
 		keywordRule.addWord("abstract", keyword);
+		keywordRule.addWord("override", keyword);
+		keywordRule.addWord("final", keyword);
 
 		literalRule.addWord("nil", literal);
 		literalRule.addWord("true", literal);
