@@ -18,11 +18,23 @@ public class BirchConfiguration extends SourceViewerConfiguration {
 	public BirchConfiguration(ColorManager colorManager) {
 		this.colorManager = colorManager;
 	}
-	
+
 	public int getTabWidth​(ISourceViewer sourceViewer) {
 		return 2;
 	}
 	
+	public String[] getDefaultPrefixes​(ISourceViewer sourceViewer, String contentType) {
+		return new String[] { "  " };
+	}
+	
+	protected String[] getIndentPrefixesForTab​(int tabWidth) {
+		String tab = "";
+		for (int i = 0; i < tabWidth; ++i) {
+			tab += "  ";
+		}
+		return new String[] { tab };
+	}
+
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
 		return new String[] {
 			IDocument.DEFAULT_CONTENT_TYPE,
