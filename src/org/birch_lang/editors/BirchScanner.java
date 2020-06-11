@@ -17,7 +17,6 @@ public class BirchScanner extends RuleBasedScanner {
 		Token literal = new Token(new TextAttribute(manager.literalColor));
 		Token weakOperator = new Token(new TextAttribute(manager.rawColor));
 		Token string = new Token(new TextAttribute(manager.literalColor));
-		Token expression = new Token(new TextAttribute(manager.expressionColor));
 
 		WordRule rawKeywordRule = new WordRule(new IWordDetector() {
 			public boolean isWordStart(char c) {
@@ -36,15 +35,6 @@ public class BirchScanner extends RuleBasedScanner {
 				return Character.isJavaIdentifierPart(c);
 			}
 		});
-		
-		WordRule spinRule = new WordRule(new IWordDetector() {
-			public boolean isWordStart(char c) {
-				return c == '@';
-			}
-			public boolean isWordPart(char c) {
-				return Character.isJavaIdentifierPart(c);
-			}
-		}, expression);
 		
 		WordRule nameRule = new WordRule(new IWordDetector() {
 			public boolean isWordStart(char c) {
@@ -122,7 +112,6 @@ public class BirchScanner extends RuleBasedScanner {
 				}),
 				new NumberRule(literal),
 				keywordRule,
-				spinRule,
 				rawKeywordRule,
 				literalRule,
 				nameRule,
@@ -137,6 +126,7 @@ public class BirchScanner extends RuleBasedScanner {
 				new WordPatternRule(new OperatorWordDetector(), "{", "", weakOperator),
 				new WordPatternRule(new OperatorWordDetector(), "}", "", weakOperator),
 				new WordPatternRule(new OperatorWordDetector(), "\\", "", weakOperator),
+				new WordPatternRule(new OperatorWordDetector(), "@", "", weakOperator),
 				new MultiLineRule("/**", "*/", doubleComment),
 				new MultiLineRule("/*", "*/", multiLineComment),
 				new EndOfLineRule("//", singleLineComment),

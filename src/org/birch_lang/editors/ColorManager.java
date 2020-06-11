@@ -16,7 +16,6 @@ public class ColorManager implements IPropertyChangeListener {
 	public Color keywordColor;
 	public Color typeColor;
 	public Color literalColor;
-	public Color expressionColor;
 	
   public ColorManager() {
 		updateColors();
@@ -66,9 +65,7 @@ public class ColorManager implements IPropertyChangeListener {
 		  literalColor = colorRegistry.get("org.eclipse.cdt.ui.c_string");
 		} else {
 			literalColor = display.getSystemColor(SWT.COLOR_BLUE);
-		}
-		
-  	expressionColor = display.getSystemColor(SWT.COLOR_DARK_CYAN);
+		}		
 	  rawColor = display.getSystemColor(SWT.COLOR_DARK_GRAY);
 	}
 }
