@@ -15,9 +15,9 @@ public class BirchDocumentProvider extends FileDocumentProvider {
 				new FastPartitioner(
 					new BirchPartitionScanner(),
 					new String[] {
-						BirchPartitionScanner.BIRCH_COMMENT,
+						BirchPartitionScanner.BIRCH_SINGLE_LINE_COMMENT,
+						BirchPartitionScanner.BIRCH_MULTI_LINE_COMMENT,
 						BirchPartitionScanner.BIRCH_DOUBLE_COMMENT,
-						//BirchPartitionScanner.BIRCH_BLOCK,
 						BirchPartitionScanner.BIRCH_RAW});
 			partitioner.connect(document);
 			document.setDocumentPartitioner(partitioner);

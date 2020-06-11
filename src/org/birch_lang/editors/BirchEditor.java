@@ -5,12 +5,9 @@ import org.eclipse.jface.text.*;
 
 public class BirchEditor extends TextEditor {
 
-	private ColorManager colorManager;
-
 	protected void initializeEditor() {
 		super.initializeEditor();
-		colorManager = new ColorManager();
-		setSourceViewerConfiguration(new BirchConfiguration(colorManager));
+		setSourceViewerConfiguration(new BirchConfiguration());
 		setDocumentProvider(new BirchDocumentProvider());
 		installTabsToSpacesConverter();
 	}
@@ -34,7 +31,6 @@ public class BirchEditor extends TextEditor {
 	}
 
 	public void dispose() {
-		colorManager.dispose();
 		super.dispose();
 	}
 }

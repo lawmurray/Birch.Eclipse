@@ -4,73 +4,70 @@ import org.eclipse.jface.text.*;
 import org.eclipse.jface.text.rules.*;
 import org.eclipse.swt.*;
 
-public class BirchScanner extends RuleBasedScanner {
-
-	public BirchScanner(ColorManager manager) {
-		Token comment = new Token(new TextAttribute(
-				manager.getColor(IBirchColorConstants.COMMENT)));
-		Token doubleComment = new Token(new TextAttribute(
-				manager.getColor(IBirchColorConstants.DOUBLE_COMMENT)));
-		//Token block = new Token(new TextAttribute(
-		//		manager.getColor(IBirchColorConstants.BLOCK)));
-		Token raw = new Token(new TextAttribute(
-				manager.getColor(IBirchColorConstants.RAW)));
-		Token rawKeyword = new Token(new TextAttribute(
-				manager.getColor(IBirchColorConstants.RAW)));
-		Token keyword = new Token(new TextAttribute(
-				manager.getColor(IBirchColorConstants.KEYWORD), null, SWT.BOLD));
-		Token name = new Token(new TextAttribute(
-				manager.getColor(IBirchColorConstants.DEFAULT)));
-		Token type = new Token(new TextAttribute(
-				manager.getColor(IBirchColorConstants.TYPE)));
-		Token literal = new Token(new TextAttribute(
-				manager.getColor(IBirchColorConstants.LITERAL)));
-		Token weakOperator = new Token(new TextAttribute(
-				manager.getColor(IBirchColorConstants.RAW)));
-		Token string = new Token(new TextAttribute(
-				manager.getColor(IBirchColorConstants.LITERAL)));
+public class BirchScanner extends RuleBasedScanner {	
+  public BirchScanner(ColorManager manager) {
+		Token singleLineComment = new Token(new TextAttribute(manager.singleLineCommentColor));
+		Token multiLineComment = new Token(new TextAttribute(manager.multiLineCommentColor));
+		Token doubleComment = new Token(new TextAttribute(manager.doubleCommentColor));
+		Token raw = new Token(new TextAttribute(manager.rawColor));
+		Token rawKeyword = new Token(new TextAttribute(manager.rawColor));
+		Token keyword = new Token(new TextAttribute(manager.keywordColor, null, SWT.BOLD));
+		Token name = new Token(new TextAttribute(null));
+		Token type = new Token(new TextAttribute(manager.typeColor));
+		Token literal = new Token(new TextAttribute(manager.literalColor));
+		Token weakOperator = new Token(new TextAttribute(manager.rawColor));
+		Token string = new Token(new TextAttribute(manager.literalColor));
+		Token expression = new Token(new TextAttribute(manager.expressionColor));
 
 		WordRule rawKeywordRule = new WordRule(new IWordDetector() {
 			public boolean isWordStart(char c) {
 				return Character.isJavaIdentifierStart(c);
 			}
-
 			public boolean isWordPart(char c) {
 				return Character.isJavaIdentifierPart(c);
 			}
 		});
+		
 		WordRule keywordRule = new WordRule(new IWordDetector() {
 			public boolean isWordStart(char c) {
 				return Character.isJavaIdentifierStart(c);
 			}
-
 			public boolean isWordPart(char c) {
 				return Character.isJavaIdentifierPart(c);
 			}
 		});
+		
+		WordRule spinRule = new WordRule(new IWordDetector() {
+			public boolean isWordStart(char c) {
+				return c == '@';
+			}
+			public boolean isWordPart(char c) {
+				return Character.isJavaIdentifierPart(c);
+			}
+		}, expression);
+		
 		WordRule nameRule = new WordRule(new IWordDetector() {
 			public boolean isWordStart(char c) {
 				return Character.isJavaIdentifierStart(c) && Character.isLowerCase(c);
 			}
-
 			public boolean isWordPart(char c) {
 				return Character.isJavaIdentifierPart(c);
 			}
 		}, name);
+		
 		WordRule typeRule = new WordRule(new IWordDetector() {
 			public boolean isWordStart(char c) {
 				return Character.isJavaIdentifierStart(c) && Character.isUpperCase(c);
 			}
-
 			public boolean isWordPart(char c) {
 				return Character.isJavaIdentifierPart(c);
 			}
 		}, type);
+		
 		WordRule literalRule = new WordRule(new IWordDetector() {
 			public boolean isWordStart(char c) {
 				return Character.isJavaIdentifierStart(c);
 			}
-
 			public boolean isWordPart(char c) {
 				return Character.isJavaIdentifierPart(c);
 			}
@@ -125,6 +122,7 @@ public class BirchScanner extends RuleBasedScanner {
 				}),
 				new NumberRule(literal),
 				keywordRule,
+				spinRule,
 				rawKeywordRule,
 				literalRule,
 				nameRule,
@@ -138,11 +136,11 @@ public class BirchScanner extends RuleBasedScanner {
 				new WordPatternRule(new OperatorWordDetector(), "]", "", weakOperator),
 				new WordPatternRule(new OperatorWordDetector(), "{", "", weakOperator),
 				new WordPatternRule(new OperatorWordDetector(), "}", "", weakOperator),
+				new WordPatternRule(new OperatorWordDetector(), "\\", "", weakOperator),
 				new MultiLineRule("/**", "*/", doubleComment),
-				new MultiLineRule("/*", "*/", comment),
-				new EndOfLineRule("//", comment),
+				new MultiLineRule("/*", "*/", multiLineComment),
+				new EndOfLineRule("//", singleLineComment),
 				new MultiLineRule("{{", "}}", raw),
-				//new MultiLineRule("{", "}", block),
 				new SingleLineRule("\"", "\"", string, '\\'),
 				});
 	}

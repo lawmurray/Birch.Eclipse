@@ -69,7 +69,6 @@ public class NonRuleBasedDamagerRepairer
 		boolean documentPartitioningChanged) {
 		if (!documentPartitioningChanged) {
 			try {
-
 				IRegion info =
 					fDocument.getLineInformationOfOffset(event.getOffset());
 				int start = Math.max(partition.getOffset(), info.getOffset());

@@ -15,8 +15,8 @@ public class BirchConfiguration extends SourceViewerConfiguration {
 	private BirchScanner scanner;
 	private ColorManager colorManager;
 
-	public BirchConfiguration(ColorManager colorManager) {
-		this.colorManager = colorManager;
+	public BirchConfiguration() {
+		this.colorManager = new ColorManager();
 	}
 
 	public int getTabWidth​(ISourceViewer sourceViewer) {
@@ -38,9 +38,9 @@ public class BirchConfiguration extends SourceViewerConfiguration {
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
 		return new String[] {
 			IDocument.DEFAULT_CONTENT_TYPE,
-			BirchPartitionScanner.BIRCH_COMMENT,
+			BirchPartitionScanner.BIRCH_SINGLE_LINE_COMMENT,
+			BirchPartitionScanner.BIRCH_MULTI_LINE_COMMENT,
 			BirchPartitionScanner.BIRCH_DOUBLE_COMMENT,
-			//BirchPartitionScanner.BIRCH_BLOCK,
 			BirchPartitionScanner.BIRCH_RAW };
 	}
 	
@@ -55,10 +55,7 @@ public class BirchConfiguration extends SourceViewerConfiguration {
 	protected BirchScanner getBirchScanner() {
 		if (scanner == null) {
 			scanner = new BirchScanner(colorManager);
-			scanner.setDefaultReturnToken(
-				new Token(
-					new TextAttribute(
-						colorManager.getColor(IBirchColorConstants.DEFAULT))));
+			scanner.setDefaultReturnToken(new Token(new TextAttribute(null)));
 		}
 		return scanner;
 	}
@@ -70,31 +67,27 @@ public class BirchConfiguration extends SourceViewerConfiguration {
 		reconciler.setDamager(dr, IDocument.DEFAULT_CONTENT_TYPE);
 		reconciler.setRepairer(dr, IDocument.DEFAULT_CONTENT_TYPE);
 
-		NonRuleBasedDamagerRepairer ndr =
-			new NonRuleBasedDamagerRepairer(
-				new TextAttribute(
-					colorManager.getColor(IBirchColorConstants.COMMENT)));
-		reconciler.setDamager(ndr, BirchPartitionScanner.BIRCH_COMMENT);
-		reconciler.setRepairer(ndr, BirchPartitionScanner.BIRCH_COMMENT);
+		NonRuleBasedDamagerRepairer ndr1 =
+				new NonRuleBasedDamagerRepairer(
+					new TextAttribute(colorManager.singleLineCommentColor));
+			reconciler.setDamager(ndr1, BirchPartitionScanner.BIRCH_SINGLE_LINE_COMMENT);
+			reconciler.setRepairer(ndr1, BirchPartitionScanner.BIRCH_SINGLE_LINE_COMMENT);
 
 		NonRuleBasedDamagerRepairer ndr2 =
-				new NonRuleBasedDamagerRepairer(
-					new TextAttribute(
-						colorManager.getColor(IBirchColorConstants.DOUBLE_COMMENT)));
-			reconciler.setDamager(ndr2, BirchPartitionScanner.BIRCH_DOUBLE_COMMENT);
-			reconciler.setRepairer(ndr2, BirchPartitionScanner.BIRCH_DOUBLE_COMMENT);
+			new NonRuleBasedDamagerRepairer(
+				new TextAttribute(colorManager.multiLineCommentColor));
+		reconciler.setDamager(ndr2, BirchPartitionScanner.BIRCH_MULTI_LINE_COMMENT);
+		reconciler.setRepairer(ndr2, BirchPartitionScanner.BIRCH_MULTI_LINE_COMMENT);
 
-		//NonRuleBasedDamagerRepairer ndr3 =
-		//		new NonRuleBasedDamagerRepairer(
-		//			new TextAttribute(
-		//				colorManager.getColor(IBirchColorConstants.BLOCK)));
-		//	reconciler.setDamager(ndr3, BirchPartitionScanner.BIRCH_BLOCK);
-		//	reconciler.setRepairer(ndr3, BirchPartitionScanner.BIRCH_BLOCK);
+		NonRuleBasedDamagerRepairer ndr3 =
+				new NonRuleBasedDamagerRepairer(
+					new TextAttribute(colorManager.doubleCommentColor));
+			reconciler.setDamager(ndr3, BirchPartitionScanner.BIRCH_DOUBLE_COMMENT);
+			reconciler.setRepairer(ndr3, BirchPartitionScanner.BIRCH_DOUBLE_COMMENT);
 
 		NonRuleBasedDamagerRepairer ndr4 =
 				new NonRuleBasedDamagerRepairer(
-					new TextAttribute(
-						colorManager.getColor(IBirchColorConstants.RAW)));
+					new TextAttribute(colorManager.rawColor));
 			reconciler.setDamager(ndr4, BirchPartitionScanner.BIRCH_RAW);
 			reconciler.setRepairer(ndr4, BirchPartitionScanner.BIRCH_RAW);
 

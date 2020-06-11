@@ -1,28 +1,74 @@
 package org.birch_lang.editors;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.*;
+import org.eclipse.swt.graphics.*;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.jface.resource.*;
+import org.eclipse.jface.util.*;
+import org.eclipse.ui.themes.*;
+import org.eclipse.ui.*;
 
-public class ColorManager {
+public class ColorManager implements IPropertyChangeListener {
+	public Color singleLineCommentColor;
+	public Color multiLineCommentColor;
+	public Color doubleCommentColor;
+	public Color rawColor;
+	public Color keywordColor;
+	public Color typeColor;
+	public Color literalColor;
+	public Color expressionColor;
+	
+  public ColorManager() {
+		updateColors();
+  }
 
-	protected Map<RGB, Color> fColorTable = new HashMap<RGB, Color>(10);
-
-	public void dispose() {
-		Iterator<Color> e = fColorTable.values().iterator();
-		while (e.hasNext())
-			 ((Color) e.next()).dispose();
+	public void propertyChange(PropertyChangeEvent arg0) {
+		updateColors();
 	}
-	public Color getColor(RGB rgb) {
-		Color color = (Color) fColorTable.get(rgb);
-		if (color == null) {
-			color = new Color(Display.getCurrent(), rgb);
-			fColorTable.put(rgb, color);
+	
+	private void updateColors() {
+		Display display = Display.getCurrent();
+		
+		IThemeManager themeManager = PlatformUI.getWorkbench().getThemeManager();
+		ITheme theme = themeManager.getCurrentTheme();
+		
+    themeManager.addPropertyChangeListener(this);
+    theme.addPropertyChangeListener(this);
+		
+		ColorRegistry colorRegistry = theme.getColorRegistry();
+		
+		if (colorRegistry.hasValueFor("org.eclipse.cdt.ui.c_single_line_comment")) {
+      singleLineCommentColor = colorRegistry.get("org.eclipse.cdt.ui.c_single_line_comment");
+		} else {
+      singleLineCommentColor = display.getSystemColor(SWT.COLOR_GREEN);
 		}
-		return color;
+		if (colorRegistry.hasValueFor("org.eclipse.cdt.ui.c_multi_line_comment")) {
+      multiLineCommentColor = colorRegistry.get("org.eclipse.cdt.ui.c_multi_line_comment");
+		} else {
+			multiLineCommentColor = display.getSystemColor(SWT.COLOR_GREEN);
+		}
+		if (colorRegistry.hasValueFor("org.eclipse.cdt.internal.ui.text.doctools.doxygen.multi")) {
+	    doubleCommentColor = colorRegistry.get("org.eclipse.cdt.internal.ui.text.doctools.doxygen.multi");
+		} else {
+			doubleCommentColor = display.getSystemColor(SWT.COLOR_GREEN);
+		}
+		if (colorRegistry.hasValueFor("org.eclipse.cdt.ui.c_keyword")) {
+		  keywordColor = colorRegistry.get("org.eclipse.cdt.ui.c_keyword");
+		} else {
+			keywordColor = display.getSystemColor(SWT.COLOR_DARK_MAGENTA);
+		}
+		if (colorRegistry.hasValueFor("org.eclipse.cdt.ui.classHighlighting")) {
+		  typeColor = colorRegistry.get("org.eclipse.cdt.ui.classHighlighting");
+		} else {
+			typeColor = display.getSystemColor(SWT.COLOR_DARK_GREEN);
+		}
+		if (colorRegistry.hasValueFor("org.eclipse.cdt.ui.c_string")) {
+		  literalColor = colorRegistry.get("org.eclipse.cdt.ui.c_string");
+		} else {
+			literalColor = display.getSystemColor(SWT.COLOR_BLUE);
+		}
+		
+  	expressionColor = display.getSystemColor(SWT.COLOR_DARK_CYAN);
+	  rawColor = display.getSystemColor(SWT.COLOR_DARK_GRAY);
 	}
 }
